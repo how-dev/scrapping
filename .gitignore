@@ -1,0 +1,58 @@
+# Python
+__pycache__
+*.py[cod]
+*.zip
+.cache
+.env
+.coverage
+.htmlcov
+
+# virtualenv
+.venv/
+venv/
+bin/
+include/
+src/
+lib/
+share/
+pip-selfcheck.json
+
+# OSX
+.DS_Store
+
+# Dev
+temp/
+*.sqlite3
+opsnr.stt
+.pytest_cache
+
+# Generated Docs
+/docs/site
+
+exports/
+*.bak
+/requirements/dev_local.txt
+/TODO
+/RUN_TESTS_BEFORE_PUSH
+build/
+dist/
+e4l_api.egg-info/
+.python-version
+.idea/
+*.sublime-*
+*~
+
+# Logs
+var/*.log
+/var/log/e4l/*.log
+/var/log/e4l/email/*.log
+log/*
+/.dir-locals.el
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# Initial migration control
+.initial-migrations-done
