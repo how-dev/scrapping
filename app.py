@@ -19,7 +19,7 @@ def metrics():
 
 
 @app.route("/search")
-@require_query_param(FlaskResponse, "keyword")
+@require_query_param(response_cls=FlaskResponse, query_param_name="keyword")
 async def google_search(keyword: str):
     api_response = FlaskResponse()
 

@@ -1,10 +1,10 @@
-from abc import ABC, abstractmethod
 from typing import List, Optional
 
+import aiohttp
 from bs4 import BeautifulSoup
 
 
-class BasicScraping(ABC):
+class BasicScraping:
     def __init__(self,
                  scraping_url: str,
                  scraping_headers: Optional[dict] = None):
@@ -23,9 +23,14 @@ class BasicScraping(ABC):
 
         return links
 
-    @abstractmethod
     async def get_html(self, keyword: str) -> str:
-        raise NotImplementedError  # pragma: no cover
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                    f"{self.scraping_url}{keyword}",
+                    headers=self.scraping_headers
+            ) as response:
+                html = await response.text()
+                return html
 
     async def get_links(self, keyword: str) -> List[str]:
         html = await self.get_html(keyword)
