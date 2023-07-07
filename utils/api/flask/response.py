@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from utils.basic_response import BasicResponse
+from utils.api.basic_response import BasicResponse
 
 
 class FlaskResponse(BasicResponse):

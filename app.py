@@ -1,25 +1,39 @@
 from flask import Flask
 
-from interactors.google_scraping import GoogleScrapingInteractor
-from presenters.google_scraping import GoogleScrapingPresenter
-from utils.basic_response import require_query_param
-from utils.flask.response import FlaskResponse
-from utils.getters import get_google_scraping
+from interactors.scraping_interactor import (
+    BingScrapingInteractor,
+    GoogleScrapingInteractor
+)
+
+from presenters.first_five_links_presenter import FirstFiveLinksPresenter
+from utils.decorators import require_query_param
+from utils.api.flask.request import FlaskRequest
+from utils.api.flask.response import FlaskResponse
+from utils.getters import get_google_scraping, get_bing_scraping
 from utils.calcs import calc_metrics_by_search_queries
 
 app = Flask(__name__)
 
 
 @app.route("/metrics")
-def metrics():
+@require_query_param(
+    response_cls=FlaskResponse,
+    request_cls=FlaskRequest,
+    query_param_name="client"
+)
+async def metrics(client: str):
     api_response = FlaskResponse()
-    calculated_search_metrics = calc_metrics_by_search_queries()
+    calculated_search_metrics = calc_metrics_by_search_queries(client)
 
     return api_response.success(calculated_search_metrics)
 
 
-@app.route("/search")
-@require_query_param(response_cls=FlaskResponse, query_param_name="keyword")
+@app.route("/google-search")
+@require_query_param(
+    response_cls=FlaskResponse,
+    request_cls=FlaskRequest,
+    query_param_name="keyword"
+)
 async def google_search(keyword: str):
     api_response = FlaskResponse()
 
@@ -27,6 +41,26 @@ async def google_search(keyword: str):
     interactor = GoogleScrapingInteractor(keyword, google_scraping)
 
     links = await interactor.run()
-    presenter = GoogleScrapingPresenter(links)
+    presenter = FirstFiveLinksPresenter(links)
+    response = presenter.present()
 
-    return api_response.success(presenter.present())
+    return api_response.success(response)
+
+
+@app.route("/bing-search")
+@require_query_param(
+    response_cls=FlaskResponse,
+    request_cls=FlaskRequest,
+    query_param_name="keyword"
+)
+async def bing_search(keyword: str):
+    api_response = FlaskResponse()
+
+    bing_scraping = get_bing_scraping()
+    interactor = BingScrapingInteractor(keyword, bing_scraping)
+
+    links = await interactor.run()
+    presenter = FirstFiveLinksPresenter(links)
+    response = presenter.present()
+
+    return api_response.success(response)

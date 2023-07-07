@@ -1,5 +1,8 @@
-class GoogleScrapingPresenter:
-    def __init__(self, links: list):
+from typing import List
+
+
+class FirstFiveLinksPresenter:
+    def __init__(self, links: List[str]):
         self.links = links
 
     def present(self) -> dict:

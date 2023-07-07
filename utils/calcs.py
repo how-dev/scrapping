@@ -1,16 +1,18 @@
 import time
 
-SEARCH_QUERIES = []
+GOOGLE_SEARCH_QUERIES = []
+BING_SEARCH_QUERIES = []
 
 
-def calc_metrics_by_search_queries() -> dict:
-    search_amount = len(SEARCH_QUERIES)
+def calc_metrics_by_search_queries(client) -> dict:
+    search_queries = _get_search_queries(client)
+    search_amount = len(search_queries)
     queries = []
     average_time = 0
 
     if search_amount:
         total_time = 0
-        for query in SEARCH_QUERIES:
+        for query in search_queries:
             total_time += query["time"]
             queries.append(query["query"])
 
@@ -19,19 +21,10 @@ def calc_metrics_by_search_queries() -> dict:
     return {"average_response_time": average_time, "search_queries": queries}
 
 
-def register_query(func):
-    def wrapper(*args, **kwargs):
-        instance = args[0]
-
-        start_time = time.time()
-        result = func(*args, **kwargs)
-        end_time = time.time()
-
-        execution_time = end_time - start_time
-
-        SEARCH_QUERIES.append({
-            "query": instance.keyword, "time": execution_time
-        })
-        return result
-
-    return wrapper
+def _get_search_queries(client):
+    client_search_queries = {
+        "google": GOOGLE_SEARCH_QUERIES,
+        "bing": BING_SEARCH_QUERIES
+    }
+    search_queries = client_search_queries.get(client, [])
+    return search_queries
