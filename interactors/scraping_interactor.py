@@ -1,7 +1,6 @@
 from abc import ABC
 
 from domain.scraping.basic_scraping import BasicScraping
-from domain.scraping.bing_scraping import BingScraping
 from utils.calcs import BING_SEARCH_QUERIES, GOOGLE_SEARCH_QUERIES
 from utils.decorators import register_query
 

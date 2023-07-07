@@ -1,5 +1,3 @@
-import time
-
 GOOGLE_SEARCH_QUERIES = []
 BING_SEARCH_QUERIES = []
 

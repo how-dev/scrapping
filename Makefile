@@ -31,4 +31,4 @@ pip-compile:  ## To compile requirements
 	rm -f requirements/base.txt
 
 	@echo "--> \033[0;32mRunning pip-compile\033[0m"
-	DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose run server bash -c	"pip-compile requirements/tests.in"
+	DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose run server bash -c	"pip-compile requirements/base.in"
