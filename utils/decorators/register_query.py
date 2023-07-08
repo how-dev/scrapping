@@ -1,4 +1,14 @@
 import time
+from dataclasses import dataclass
+
+from config import Clients
+
+
+@dataclass
+class SearchQuery:
+    keyword: str
+    client: Clients
+    execution_time: float
 
 
 def register_query(search_queries):
@@ -11,10 +21,13 @@ def register_query(search_queries):
             end_time = time.time()
 
             execution_time = end_time - start_time
+            search_query = SearchQuery(
+                keyword=instance.keyword,
+                client=instance.client,
+                execution_time=execution_time
+            )
 
-            search_queries.append({
-                "query": instance.keyword, "time": execution_time
-            })
+            search_queries.append(search_query)
             return result
 
         return wrapper

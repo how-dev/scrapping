@@ -5,10 +5,12 @@ from bs4 import BeautifulSoup
 
 
 class BasicScraping:
-    def __init__(self,
-                 scraping_url: str,
-                 link_selector: dict,
-                 scraping_headers: Optional[dict] = None):
+    def __init__(
+        self,
+        scraping_url: str,
+        link_selector: dict,
+        scraping_headers: Optional[dict] = None,
+    ):
         self.scraping_url = scraping_url
         self.link_selector = link_selector
         self.scraping_headers = scraping_headers or {}

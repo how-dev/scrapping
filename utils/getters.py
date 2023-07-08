@@ -1,17 +1,25 @@
-from domain.scraping import (
-    BingScraping,
-    GoogleScraping
-)
+from config import Clients
+from domain.scraping import BingScraping, GoogleScraping
 from domain.scraping.yahoo_scraping import YahooScraping
 
 
-def get_google_scraping() -> GoogleScraping:
-    return GoogleScraping()
+class GetScrapingError(Exception):
+    pass
 
 
-def get_bing_scraping() -> BingScraping:
-    return BingScraping()
+class ScrapingFactory:
+    CLIENTS = {
+        Clients.GOOGLE: GoogleScraping,
+        Clients.BING: BingScraping,
+        Clients.YAHOO: YahooScraping,
+    }
 
+    def __init__(self, client: Clients):
+        self.client = client
 
-def get_yahoo_scraping() -> YahooScraping:
-    return YahooScraping()
+    @property
+    def scraping(self):
+        try:
+            return self.CLIENTS[self.client]()
+        except KeyError:
+            raise GetScrapingError("Client not found")
