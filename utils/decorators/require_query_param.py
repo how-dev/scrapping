@@ -1,6 +1,6 @@
 from enum import Enum
 from functools import wraps
-from typing import Type, Optional
+from typing import Type, Optional, AnyStr
 
 from utils.api.basic_request import BasicRequest
 from utils.api.basic_response import BasicResponse
@@ -9,9 +9,9 @@ from utils.api.basic_response import BasicResponse
 def require_query_param(
     response_cls: Type[BasicResponse],
     request_cls: Type[BasicRequest],
-    query_param_name: str,
-    default_value: Optional[str] = None,
-    options_enum: Type[Enum] = None,
+    query_param_name: AnyStr,
+    default_value: Optional[AnyStr] = None,
+    enum: Optional[Type[Enum]] = None,
 ):
     def decorator(func):
         @wraps(func)
@@ -29,8 +29,8 @@ def require_query_param(
                     }
                 )
 
-            if options_enum:
-                option_values = [option.value for option in options_enum]
+            if enum:
+                option_values = [option.value for option in enum]
                 if query_param not in option_values:
                     response = response_cls()
                     return response.bad_request(
@@ -42,7 +42,7 @@ def require_query_param(
                         }
                     )
                 else:
-                    query_param = options_enum(query_param)
+                    query_param = enum(query_param)
 
             kwargs[query_param_name] = query_param
             return await func(*args, **kwargs)

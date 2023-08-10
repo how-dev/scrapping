@@ -1,7 +1,7 @@
 from flask import Flask
 
-from config import Clients
-from interactors.scraping_interactor import ScrapingInteractor
+from domain.scraping.basic_web_scraping import WebClients
+from interactors.web_scraping_interactor import WebScrapingInteractor
 
 from presenters.first_five_links_presenter import FirstFiveLinksPresenter
 from utils.decorators import require_query_param
@@ -18,9 +18,9 @@ app = Flask(__name__)
     response_cls=FlaskResponse,
     request_cls=FlaskRequest,
     query_param_name="client",
-    options_enum=Clients
+    enum=WebClients
 )
-async def metrics(client: Clients):
+async def metrics(client: WebClients):
     api_response = FlaskResponse()
     calculated_search_metrics = calc_metrics_by_client(client)
 
@@ -37,12 +37,12 @@ async def metrics(client: Clients):
     response_cls=FlaskResponse,
     request_cls=FlaskRequest,
     query_param_name="client",
-    options_enum=Clients,
+    enum=WebClients,
 )
-async def search(keyword: str, client: Clients):
+async def search(keyword: str, client: WebClients):
     api_response = FlaskResponse()
     scraping = ScrapingFactory(client).scraping
-    interactor = ScrapingInteractor(keyword, scraping, client)
+    interactor = WebScrapingInteractor(keyword, scraping, client)
 
     links = await interactor.run()
     presenter = FirstFiveLinksPresenter(links)

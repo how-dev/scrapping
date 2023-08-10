@@ -1,5 +1,5 @@
-from config import Clients
 from domain.scraping import BingScraping, GoogleScraping
+from domain.scraping.basic_web_scraping import WebClients
 from domain.scraping.yahoo_scraping import YahooScraping
 
 
@@ -9,12 +9,12 @@ class GetScrapingError(Exception):
 
 class ScrapingFactory:
     CLIENTS = {
-        Clients.GOOGLE: GoogleScraping,
-        Clients.BING: BingScraping,
-        Clients.YAHOO: YahooScraping,
+        WebClients.GOOGLE: GoogleScraping,
+        WebClients.BING: BingScraping,
+        WebClients.YAHOO: YahooScraping,
     }
 
-    def __init__(self, client: Clients):
+    def __init__(self, client: WebClients):
         self.client = client
 
     @property

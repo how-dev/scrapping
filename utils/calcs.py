@@ -1,12 +1,12 @@
 from typing import List
 
-from config import Clients
+from domain.scraping.basic_web_scraping import WebClients
 from utils.decorators.register_query import SearchQuery
 
 SEARCH_QUERIES: List[SearchQuery] = []
 
 
-def calc_metrics_by_client(client: Clients) -> dict:
+def calc_metrics_by_client(client: WebClients) -> dict:
     search_query_by_client = list(
         filter(lambda q: q.client == client, SEARCH_QUERIES)
     )

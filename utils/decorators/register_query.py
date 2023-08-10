@@ -1,13 +1,13 @@
 import time
 from dataclasses import dataclass
 
-from config import Clients
+from domain.scraping.basic_web_scraping import WebClients
 
 
 @dataclass
 class SearchQuery:
     keyword: str
-    client: Clients
+    client: WebClients
     execution_time: float
 
 
