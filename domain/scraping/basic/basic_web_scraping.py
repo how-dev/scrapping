@@ -40,9 +40,7 @@ class BasicWebScraping(BasicScraping):
         full_url = f"{url}{keyword}"
 
         async with aiohttp.ClientSession() as session:
-            async with session.get(
-                full_url, headers=headers
-            ) as response:
+            async with session.get(full_url, headers=headers) as response:
                 html = await response.text()
                 return html
 
@@ -80,8 +78,8 @@ class BasicWebScraping(BasicScraping):
             return False
 
         return (
-            self.scraping_url == other.scraping_url and
-            self.scraping_headers == other.scraping_headers
+            self.scraping_url == other.scraping_url
+            and self.scraping_headers == other.scraping_headers
         )
 
     def __hash__(self):

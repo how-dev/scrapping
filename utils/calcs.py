@@ -8,8 +8,7 @@ SEARCH_QUERIES: List[SearchQuery] = []
 
 def calc_metrics_by_client(client: WebClients) -> dict:
     search_query_by_client = list(
-        filter(lambda q: q.client == client, SEARCH_QUERIES)
-    )
+        filter(lambda q: q.client == client, SEARCH_QUERIES))
     search_amount = len(search_query_by_client)
     queries = []
     average_time = 0

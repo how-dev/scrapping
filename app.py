@@ -18,7 +18,7 @@ app = Flask(__name__)
     response_cls=FlaskResponse,
     request_cls=FlaskRequest,
     query_param_name="client",
-    enum=WebClients
+    enum=WebClients,
 )
 async def metrics(client: WebClients):
     api_response = FlaskResponse()

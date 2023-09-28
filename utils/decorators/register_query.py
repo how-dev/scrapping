@@ -24,7 +24,7 @@ def register_query(search_queries):
             search_query = SearchQuery(
                 keyword=instance.keyword,
                 client=instance.client,
-                execution_time=execution_time
+                execution_time=execution_time,
             )
 
             search_queries.append(search_query)

@@ -1,7 +1,10 @@
 from typing import AnyStr
 
 from domain.controllers.get_links_controller import GetLinksController
-from domain.scraping.basic.basic_web_scraping import BasicWebScraping, WebClients
+from domain.scraping.basic.basic_web_scraping import (
+    BasicWebScraping,
+    WebClients
+)
 from utils.calcs import SEARCH_QUERIES
 from utils.decorators import register_query
 
@@ -20,10 +23,7 @@ class WebScrapingInteractor:
     @register_query(SEARCH_QUERIES)
     async def run(self):
         document = await self.web_scraping.get_document(self.keyword)
-        controller = GetLinksController(
-            document,
-            self.client
-        )
+        controller = GetLinksController(document, self.client)
 
         links = controller.get_links()
         return links

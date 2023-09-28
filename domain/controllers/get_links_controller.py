@@ -9,7 +9,7 @@ class GetLinksController:
     LINKS_SELECTOR = {
         WebClients.GOOGLE: {"name": "div", "class_": "g"},
         WebClients.BING: {"name": "li", "class": "b_algo"},
-        WebClients.YAHOO: {"name": "div", "class_": "algo-sr"}
+        WebClients.YAHOO: {"name": "div", "class_": "algo-sr"},
     }
 
     def __init__(self, html: AnyStr, client: WebClients):
