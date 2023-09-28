@@ -1,9 +1,12 @@
+import logging
 from enum import Enum
 from typing import Optional, Dict, AnyStr
 
 import aiohttp
 
-from domain.scraping.basic_scraping import BasicScraping
+from domain.scraping.basic.basic_scraping import BasicScraping
+
+logger = logging.getLogger(__name__)
 
 
 class WebClients(Enum):
@@ -34,9 +37,11 @@ class BasicWebScraping(BasicScraping):
         url = self.get_scraping_url()
         keyword = self.clean_keyword(keyword)
 
+        full_url = f"{url}{keyword}"
+
         async with aiohttp.ClientSession() as session:
             async with session.get(
-                f"{url}{keyword}", headers=headers
+                full_url, headers=headers
             ) as response:
                 html = await response.text()
                 return html
@@ -63,3 +68,24 @@ class BasicWebScraping(BasicScraping):
         :return: AnyStr
         """
         return keyword
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.scraping_url})"
+
+    def __str__(self):
+        return self.__repr__()
+
+    def __eq__(self, other):
+        if not isinstance(other, BasicWebScraping):
+            return False
+
+        return (
+            self.scraping_url == other.scraping_url and
+            self.scraping_headers == other.scraping_headers
+        )
+
+    def __hash__(self):
+        return hash((self.scraping_url, self.scraping_headers))
+
+    def __ne__(self, other):
+        return not self.__eq__(other)

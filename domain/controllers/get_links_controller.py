@@ -2,7 +2,7 @@ from typing import AnyStr, List
 
 from bs4 import BeautifulSoup
 
-from domain.scraping.basic_web_scraping import WebClients
+from domain.scraping.basic.basic_web_scraping import WebClients
 
 
 class GetLinksController:
@@ -17,10 +17,7 @@ class GetLinksController:
         self.client = client
 
     def get_links(self) -> List[AnyStr]:
-        return self.get_links_by_html(self.html)
-
-    def get_links_by_html(self, html: AnyStr) -> List[AnyStr]:
-        soup = BeautifulSoup(html, "html.parser")
+        soup = BeautifulSoup(self.html, "html.parser")
         links: List[AnyStr] = []
         for result in soup.find_all(**self.LINKS_SELECTOR[self.client]):
             link = result.find("a", href=True)

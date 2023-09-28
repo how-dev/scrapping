@@ -1,6 +1,6 @@
 from typing import List
 
-from domain.scraping.basic_web_scraping import WebClients
+from domain.scraping.basic.basic_web_scraping import WebClients
 from utils.decorators.register_query import SearchQuery
 
 SEARCH_QUERIES: List[SearchQuery] = []

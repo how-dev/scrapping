@@ -1,7 +1,7 @@
 from typing import AnyStr
 
 from domain.controllers.get_links_controller import GetLinksController
-from domain.scraping.basic_web_scraping import BasicWebScraping, WebClients
+from domain.scraping.basic.basic_web_scraping import BasicWebScraping, WebClients
 from utils.calcs import SEARCH_QUERIES
 from utils.decorators import register_query
 

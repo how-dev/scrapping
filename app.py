@@ -1,6 +1,6 @@
 from flask import Flask
 
-from domain.scraping.basic_web_scraping import WebClients
+from domain.scraping.basic.basic_web_scraping import WebClients
 from interactors.web_scraping_interactor import WebScrapingInteractor
 
 from presenters.first_five_links_presenter import FirstFiveLinksPresenter
@@ -37,6 +37,7 @@ async def metrics(client: WebClients):
     response_cls=FlaskResponse,
     request_cls=FlaskRequest,
     query_param_name="client",
+    default_value=WebClients.GOOGLE.value,
     enum=WebClients,
 )
 async def search(keyword: str, client: WebClients):

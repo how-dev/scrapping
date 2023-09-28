@@ -1,6 +1,6 @@
 from enum import Enum
 from functools import wraps
-from typing import Type, Optional, AnyStr
+from typing import Type, Optional, AnyStr, Any
 
 from utils.api.basic_request import BasicRequest
 from utils.api.basic_response import BasicResponse
@@ -10,7 +10,7 @@ def require_query_param(
     response_cls: Type[BasicResponse],
     request_cls: Type[BasicRequest],
     query_param_name: AnyStr,
-    default_value: Optional[AnyStr] = None,
+    default_value: Optional[Any] = None,
     enum: Optional[Type[Enum]] = None,
 ):
     def decorator(func):

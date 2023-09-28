@@ -1,7 +1,7 @@
 import time
 from dataclasses import dataclass
 
-from domain.scraping.basic_web_scraping import WebClients
+from domain.scraping.basic.basic_web_scraping import WebClients
 
 
 @dataclass

@@ -1,4 +1,4 @@
-from .basic_web_scraping import BasicWebScraping
+from domain.scraping.basic.basic_web_scraping import BasicWebScraping
 
 
 class GoogleScraping(BasicWebScraping):

@@ -1,5 +1,5 @@
 from domain.scraping import BingScraping, GoogleScraping
-from domain.scraping.basic_web_scraping import WebClients
+from domain.scraping.basic.basic_web_scraping import WebClients
 from domain.scraping.yahoo_scraping import YahooScraping
 
 

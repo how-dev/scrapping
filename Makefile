@@ -3,6 +3,7 @@
 		docker_build_local docker_build_uat docker_build_production docker_run_local
 
 FLASK_COMMAND = flask run
+FLASK_PARAMS = --debugger --reload
 PYTEST_CONFIG = -s -v --cov-report  term-missing -p pytest_asyncio
 
 help:
@@ -11,7 +12,7 @@ help:
 
 run: ## To run project locally
 	@echo "--> \033[0;32mUping in the port 5000\033[0m"
-	docker-compose up
+	${FLASK_COMMAND} ${FLASK_PARAMS}
 
 down: ## To run project locally
 	@echo "--> \033[0;32mUping in the port 5000\033[0m"
