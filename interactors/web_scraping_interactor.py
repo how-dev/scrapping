@@ -23,7 +23,6 @@ class WebScrapingInteractor:
     @register_query(SEARCH_QUERIES)
     async def run(self):
         document = await self.web_scraping.get_document(self.keyword)
-        print(document)
         controller = GetLinksController(document, self.client)
 
         links = controller.get_links()
