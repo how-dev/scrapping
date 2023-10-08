@@ -3,7 +3,7 @@ from typing import Dict
 from interactors.calc_metrics_interactor import CalcMetricsResponse
 
 
-class MetricsPresenter:
+class CalcMetricsPresenter:
     def __init__(self, metrics: CalcMetricsResponse):
         self.metrics = metrics
 

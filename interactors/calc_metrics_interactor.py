@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import AnyStr, List
 
 from domain.scraping.basic.basic_web_scraping import WebClients
-from utils.decorators.register_query import SearchQuery, SEARCH_QUERIES
+from utils.decorators.register_query import SEARCH_QUERIES, Queries
 
 
 @dataclass
@@ -27,14 +27,14 @@ class CalcMetricsInteractor:
 
     @staticmethod
     def _get_queries(
-        search_query_by_client: List[SearchQuery]
+        search_query_by_client: Queries
     ) -> List[AnyStr]:
         return [
             query.keyword for query in search_query_by_client
         ]
 
     def _get_average_time(
-        self, search_query_by_client: List[SearchQuery]
+        self, search_query_by_client: Queries
     ) -> float:
         average_time = 0
         search_amount = len(search_query_by_client)
@@ -45,12 +45,12 @@ class CalcMetricsInteractor:
         return average_time
 
     @staticmethod
-    def _get_total_time(search_query_by_client: List[SearchQuery]) -> float:
+    def _get_total_time(search_query_by_client: Queries) -> float:
         return sum(
             [query.execution_time for query in search_query_by_client]
         )
 
-    def _get_searches(self) -> List[SearchQuery]:
+    def _get_searches(self) -> Queries:
         return [
             query for query in SEARCH_QUERIES if query.client == self.client
         ]

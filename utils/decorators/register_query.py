@@ -12,7 +12,8 @@ class SearchQuery:
     execution_time: float
 
 
-SEARCH_QUERIES: List[SearchQuery] = []
+Queries = List[SearchQuery]
+SEARCH_QUERIES: Queries = []
 
 
 def register_query(search_queries):

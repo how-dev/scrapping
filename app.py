@@ -7,7 +7,7 @@ from interactors.calc_metrics_interactor import CalcMetricsInteractor
 from interactors.web_scraping_interactor import WebScrapingInteractor
 
 from presenters.first_five_links_presenter import FirstFiveLinksPresenter
-from presenters.metrics_presenter import MetricsPresenter
+from presenters.metrics_presenter import CalcMetricsPresenter
 from utils.decorators import require_query_param
 from utils.api.flask.request import FlaskRequest
 from utils.api.flask.response import FlaskResponse
@@ -34,7 +34,7 @@ async def metrics(client: WebClients):
     interactor = CalcMetricsInteractor(client)
     calculated_metrics = interactor.run()
 
-    presenter = MetricsPresenter(calculated_metrics)
+    presenter = CalcMetricsPresenter(calculated_metrics)
     response = presenter.present()
 
     return api_response.success(response)
