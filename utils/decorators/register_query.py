@@ -1,5 +1,6 @@
 import time
 from dataclasses import dataclass
+from typing import List
 
 from domain.scraping.basic.basic_web_scraping import WebClients
 
@@ -9,6 +10,9 @@ class SearchQuery:
     keyword: str
     client: WebClients
     execution_time: float
+
+
+SEARCH_QUERIES: List[SearchQuery] = []
 
 
 def register_query(search_queries):

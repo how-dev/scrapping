@@ -3,7 +3,7 @@ from domain.scraping.basic.basic_web_scraping import WebClients
 from domain.scraping.yahoo_scraping import YahooScraping
 
 
-class GetScrapingError(Exception):
+class GetScrapingError(ValueError):
     pass
 
 
@@ -17,9 +17,11 @@ class ScrapingFactory:
     def __init__(self, client: WebClients):
         self.client = client
 
-    @property
-    def scraping(self):
-        try:
-            return self.CLIENTS[self.client]()
-        except KeyError:
+    def get_scraping(self):
+        is_valid_client = self.client in self.CLIENTS
+
+        if not is_valid_client:
             raise GetScrapingError("Client not found")
+
+        current_client = self.CLIENTS[self.client]
+        return current_client()
